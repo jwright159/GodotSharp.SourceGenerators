@@ -276,7 +276,9 @@ namespace GodotSharp.SourceGenerators.SceneTreeExtensions
                     void ScriptMatch()
                     {
                         if (value is "null") return;
-                        var resourceId = ResIdRegex.Match(value).Groups["Id"].Value;
+                        match = ResIdRegex.Match(value);
+                        if (!match.Success) return;
+                        var resourceId = match.Groups["Id"].Value;
                         Log.Debug($" - ResourceId: {resourceId}");
                         var resource = resources[resourceId];
                         var name = Path.GetFileNameWithoutExtension(resource);
